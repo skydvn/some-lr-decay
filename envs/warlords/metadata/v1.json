@@ -1,0 +1,8 @@
+{
+    "stack_size" : 4,
+    "frame_size" : [64, 64],
+    "max_cycles" : 124,
+    "render_mode" : "rgb_array",
+    "parralel" : true,
+    "color_reduc" : true
+}
