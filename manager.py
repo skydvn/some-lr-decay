@@ -219,7 +219,9 @@ class Training:
             reward_win = {
                 agent : 0 for agent in self.agent_names
             }
-
+            
+            rount_cnt = 0
+            
             with torch.no_grad():
 
                 next_obs = self.output_env.reset(seed=None)
@@ -291,6 +293,10 @@ class Training:
                         agent : True if rewards[agent] == 1 or rewards[agent] == -1 else False for agent in self.agent_names
                     }
 
+                    # Update Round
+                    if rewards["first_0"] != 0:
+                        rount_cnt += 1
+
                     # Update win
                     for agent_name in self.agent_names:
                         if rewards[agent_name] == -1:
@@ -332,7 +338,9 @@ class Training:
                 win_log["step"].append(step)
                 for agent in self.agent_names:
                     win_log[agent].append(reward_win[agent])
-                    
+
+            print(f"Average step: {step/round_cnt} | Total step: {step} | Total round: {round_cnt}")
+
             for agent in self.agent_names:
                 self.main_algo_agents[agent].update()
                 self.main_algo_agents[agent].export_log(rdir=self.log_agent_dir, ep=ep)

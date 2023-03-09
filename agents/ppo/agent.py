@@ -297,19 +297,19 @@ class PPO:
 
                     self.policy_old.load_state_dict(self.policy.state_dict())   
 
-        # if self.debug_mode == None:
-        #     pass
-        # elif self.debug_mode == 0:
-        #     print(f"\nActor: {actor_loss.item()} - Critic: {critic_loss.item()}")
-        # elif self.debug_mode == 1:
-        #     print(f"\nActor: {actor_loss.item()} - Critic: {critic_loss.item()}")
+        if self.debug_mode == None:
+            pass
+        elif self.debug_mode == 0:
+            print(f"\nActor: {actor_loss.item()} - Critic: {critic_loss.item()}")
+        elif self.debug_mode == 1:
+            print(f"\nActor: {actor_loss.item()} - Critic: {critic_loss.item()}")
 
-        #     if str(self.policy.state_dict()) == str(self.policy_old.state_dict()):
-        #         print("Policy is updated")
-        #     if str(self.policy.actor.state_dict()) == str(self.policy_old.actor.state_dict()):
-        #         print("Actor is updated")
-        #     if str(self.policy.critic.state_dict()) == str(self.policy_old.critic.state_dict()):
-        #         print("Critic is updated")
+            if str(self.policy.state_dict()) == str(self.policy_old.state_dict()):
+                print("Policy is updated")
+            if str(self.policy.actor.state_dict()) == str(self.policy_old.actor.state_dict()):
+                print("Actor is updated")
+            if str(self.policy.critic.state_dict()) == str(self.policy_old.critic.state_dict()):
+                print("Critic is updated")
         elif self.debug_mode == 2:
             print(f"Total step: {len(self.buffer.observations)}")
             print("Actor Loss: min -> {0} | max -> {1} | avg -> {2}".format(
