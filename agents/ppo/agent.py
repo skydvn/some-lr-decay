@@ -411,7 +411,6 @@ class PPO:
             if str(self.policy.critic.state_dict()) == str(self.policy_old.critic.state_dict()):
                 print("Critic is updated")
         elif self.debug_mode == 2:
-            print(f"Total step: {len(self.buffer.observations)}")
             print("Actor Loss: min -> {0} | max -> {1} | avg -> {2}".format(
                 min(self.log["actor_loss"]), max(self.log["actor_loss"]), sum(self.log["actor_loss"])/len(self.log["actor_loss"])
             ))
