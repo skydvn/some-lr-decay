@@ -540,8 +540,8 @@ class Training:
                 self.main_algo_agents[agent].export_log(rdir=self.log_agent_dir, ep=ep)  # Save main algo log
                 self.main_algo_agents[agent].model_export(rdir=self.model_agent_dir)  # Save main algo model
 
-                self.main_algo_agents[agent].update_lr(end_no_tstep = step,
-                                                       max_time_step = self.episodes * self.max_cycles)
+                self.main_algo_agents[agent].update_lr(end_no_tstep = ep,
+                                                       max_time_step = self.episodes)
                 
                 # print(self.main_algo_agents[agent].get_critic_lr())
                 # print(self.main_algo_agents[agent].get_actor_lr())

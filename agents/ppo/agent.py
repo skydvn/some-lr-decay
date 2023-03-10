@@ -278,7 +278,7 @@ class PPO:
                     # final loss of clipped objective PPO
                     actor_loss = -torch.min(obj, obj_clip).mean() - 0.01 * dist_entropy.mean()
 
-                    critic_loss = 0.5 * nn.MSELoss()(obs_values, base_rew)
+                    critic_loss = nn.MSELoss()(obs_values, base_rew)
 
                     # Logging
                     self.logging(
@@ -428,9 +428,9 @@ class PPO:
 
         if self.lr_decay_mode == 2:
             self._update_lr_critic(max_time_step=max_time_step)
-            self._udpate_lr_actor(max_time_step=max_time_step)
+            self._update_lr_actor(max_time_step=max_time_step)
         elif self.lr_decay_mode == 1:
-            self._udpate_lr_actor(max_time_step=max_time_step)
+            self._update_lr_actor(max_time_step=max_time_step)
         elif self.lr_decay_mode == 0:
             self._update_lr_critic(max_time_step=max_time_step)
         else:
@@ -443,7 +443,7 @@ class PPO:
         new_optim_critic.load_state_dict(self.critic_opt.state_dict())
         self.critic_opt = new_optim_critic
     
-    def _udpate_lr_actor(self, max_time_step):
+    def _update_lr_actor(self, max_time_step):
         self.lr_actor = (1-self.max_curr_step/(max_time_step))*self.lr_diff_actor + self.lr_low
         new_optim_actor = opt_mapping[self.opt](self.policy.actor.parameters(), lr = self.lr_actor)
         new_optim_actor.load_state_dict(self.actor_opt.state_dict())
