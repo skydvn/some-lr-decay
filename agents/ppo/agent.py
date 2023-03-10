@@ -16,6 +16,7 @@ import pandas as pd
 
 opt_mapping = {
     "SGD" : optim.SGD,
+    "RMSprop" : optim.RMSprop,
     "Adam" : optim.Adam
 }
 
