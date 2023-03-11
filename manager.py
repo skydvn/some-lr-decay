@@ -489,12 +489,10 @@ class Training:
                     # Fix reward
                     if self.fix_reward:                        
                         for agent in self.agent_names:
-                            if rewards[agent] == 0:
-                                rewards[agent] = max_reward/(step + 1)
-                            elif rewards[agent] == -1:
-                                rewards[agent] = -10
+                            if rewards[agent] == 1:
+                                rewards[agent] = 0
                             else:
-                                rewards[agent] = 10
+                                pass
                     
                     reward_log["ep"].append(ep)
                     reward_log["step"].append(step)
