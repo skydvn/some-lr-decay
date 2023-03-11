@@ -412,11 +412,11 @@ class PPO:
             if str(self.policy.critic.state_dict()) == str(self.policy_old.critic.state_dict()):
                 print("Critic is updated")
         elif self.debug_mode == 2:
-            print("Actor Loss: min -> {0} | max -> {1} | avg -> {2}".format(
-                min(self.log["actor_loss"]), max(self.log["actor_loss"]), sum(self.log["actor_loss"])/len(self.log["actor_loss"])
+            print("Actor Loss: min -> {0} | max -> {1} | avg -> {2} | lr_actor -> {3}".format(
+                min(self.log["actor_loss"]), max(self.log["actor_loss"]), sum(self.log["actor_loss"])/len(self.log["actor_loss"]), self.lr_actor
             ))
-            print("Critic Loss: min -> {0} | max -> {1} | avg -> {2}".format(
-                min(self.log["critic_loss"]), max(self.log["critic_loss"]), sum(self.log["critic_loss"])/len(self.log["critic_loss"])
+            print("Critic Loss: min -> {0} | max -> {1} | avg -> {2} | lr_critic -> {3}".format(
+                min(self.log["critic_loss"]), max(self.log["critic_loss"]), sum(self.log["critic_loss"])/len(self.log["critic_loss"]), self.lr_critic
             ))
 
 
@@ -447,7 +447,7 @@ class PPO:
         self.lr_actor = (1-self.max_curr_step/(max_time_step))*self.lr_diff_actor + self.lr_low
         new_optim_actor = opt_mapping[self.opt](self.policy.actor.parameters(), lr = self.lr_actor)
         new_optim_actor.load_state_dict(self.actor_opt.state_dict())
-        self.critic_opt = new_optim_actor
+        self.actor_opt = new_optim_actor
     
     def get_critic_lr(self):
         return self.lr_critic
