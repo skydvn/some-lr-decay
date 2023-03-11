@@ -424,7 +424,7 @@ class PPO:
         self.buffer.clear()
 
     def update_lr(self, end_no_tstep, max_time_step):
-        self.max_curr_step += end_no_tstep
+        self.max_curr_step = end_no_tstep
 
         if self.lr_decay_mode == 2:
             self._update_lr_critic(max_time_step=max_time_step)
