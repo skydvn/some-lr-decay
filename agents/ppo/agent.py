@@ -439,12 +439,16 @@ class PPO:
     
     def _update_lr_critic(self, max_time_step):
         self.lr_critic = (1-self.max_curr_step/(max_time_step))*self.lr_diff_critic + self.lr_low
+        if self.lr_critic < 0:
+            print(f"curr step: {self.max_curr_step} | max step: {max_time_step} | lr_diff: {self.lr_diff_critic}")
         new_optim_critic = opt_mapping[self.opt](self.policy.critic.parameters(), lr = self.lr_critic)
         new_optim_critic.load_state_dict(self.critic_opt.state_dict())
         self.critic_opt = new_optim_critic
     
     def _update_lr_actor(self, max_time_step):
         self.lr_actor = (1-self.max_curr_step/(max_time_step))*self.lr_diff_actor + self.lr_low
+        if self.lr_actor < 0:
+            print(f"curr step: {self.max_curr_step} | max step: {max_time_step} | lr_diff: {self.lr_diff_actor}")
         new_optim_actor = opt_mapping[self.opt](self.policy.actor.parameters(), lr = self.lr_actor)
         new_optim_actor.load_state_dict(self.actor_opt.state_dict())
         self.actor_opt = new_optim_actor
