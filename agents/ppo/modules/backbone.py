@@ -22,6 +22,8 @@ class ActorCriticSiamese(ACSiamese):
             nn.Flatten(),
             nn.Linear(128 * 8 * 8, 512),
             nn.ReLU(),
+            nn.Linear(512, 512),
+            nn.ReLU(),
             layer_init(nn.Linear(512, num_actions)),
         )
         self.critic = nn.Sequential(
@@ -36,6 +38,8 @@ class ActorCriticSiamese(ACSiamese):
             nn.ReLU(),
             nn.Flatten(),
             nn.Linear(128 * 8 * 8, 512),
+            nn.ReLU(),
+            nn.Linear(512, 512),
             nn.ReLU(),
             layer_init(nn.Linear(512, 1))
         )

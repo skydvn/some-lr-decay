@@ -334,7 +334,7 @@ class Training:
                     win_log[agent].append(reward_win[agent])
                     
             for agent in self.agent_names:
-                self.main_algo_agents[agent].update()
+                self.main_algo_agents[agent].update(ep)
                 self.main_algo_agents[agent].export_log(rdir=self.log_agent_dir, ep=ep)
                 self.main_algo_agents[agent].model_export(rdir=self.model_agent_dir)
 
@@ -487,12 +487,17 @@ class Training:
                             rewards[agent] = 0 - rewards[agent]
 
                     # Fix reward
-                    if self.fix_reward:                        
+                    if self.fix_reward == "lose_penalty":
                         for agent in self.agent_names:
                             if rewards[agent] == 1:
                                 rewards[agent] = 0
                             else:
                                 pass
+                    elif self.fix_reward == "step_reward":
+                        # for agent in self.agent_names:
+                        pass
+                    else:
+                        pass
                     
                     reward_log["ep"].append(ep)
                     reward_log["step"].append(step)
@@ -534,7 +539,7 @@ class Training:
             print(f"Episode: {ep} | Average: {step/round_cnt} | Total: {step} | Round: {round_cnt}")
 
             for agent in self.agent_names:
-                self.main_algo_agents[agent].update()
+                self.main_algo_agents[agent].update(ep)
                 self.main_algo_agents[agent].export_log(rdir=self.log_agent_dir, ep=ep)  # Save main algo log
                 self.main_algo_agents[agent].model_export(rdir=self.model_agent_dir)  # Save main algo model
 

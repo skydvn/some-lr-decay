@@ -47,7 +47,7 @@ if __name__ == '__main__':
                         help="Script includes weight paths to model, only needed in experiment mode, "
                              "detail in /script folder, create your_setting.json same as sample.json "
                              "for conducting custom experiment")
-    parser.add_argument("--fix_reward", type=bool, default=False,
+    parser.add_argument("--fix_reward", type=str, default="default", choices=["default", "lose_penalty", "step_reward"],
                         help="Make reward by step")
     parser.add_argument("--max_reward", type=int, default=100,
                         help="Max reward only use for pong-algo-only mode")
